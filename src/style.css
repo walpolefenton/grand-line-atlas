@@ -116,7 +116,7 @@ main { position: relative; overflow: hidden; }
 .rl-edge { fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linejoin: round; }
 .neatline { fill: none; stroke: var(--ink); stroke-width: 6; opacity: .0; }
 .sea-name { font-family: var(--display); fill: var(--ink); opacity: .13; text-anchor: middle; letter-spacing: .32em; }
-.band-name { font: italic 500 20px var(--serif); fill: var(--ink); opacity: .55; text-anchor: middle; letter-spacing: .1em; }
+.band-name { font: italic 500 20px var(--serif); fill: var(--ink); opacity: .55; text-anchor: middle; letter-spacing: .45em; word-spacing: .3em; }
 .belt-name { font: 600 13px var(--sans); fill: var(--ink); opacity: .45; text-anchor: middle; letter-spacing: .5em; }
 .rl-name { font-family: var(--display); fill: var(--ink); opacity: .55; text-anchor: middle; letter-spacing: .5em; }
 .rose-ring { fill: none; stroke: var(--ink); stroke-width: 1.6; opacity: .45; }

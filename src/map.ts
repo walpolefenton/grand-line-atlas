@@ -93,12 +93,14 @@ export class ChartMap {
     host.appendChild(this.svg);
     this.defs();
     this.view = el("g", {}, this.svg) as SVGGElement;
-    this.world = el("g", { id: "world" }) as SVGGElement;
+    // Two layers, each drawn three times across the wrap seam. All the sea copies
+    // go down first, so islands east of x = W are never painted over by the next copy.
     const defs = this.svg.querySelector("defs")!;
-    defs.appendChild(this.world);
+    this.world = el("g", { id: "world-base" }, defs) as SVGGElement;
     this.base(el("g", { "clip-path": "url(#worldclip)" }, this.world) as SVGGElement);
-    this.dyn = el("g", {}, this.world) as SVGGElement;
-    for (const off of [-W, 0, W]) el("use", { href: "#world", x: off }, this.view);
+    this.dyn = el("g", { id: "world-dyn" }, defs) as SVGGElement;
+    for (const layer of ["#world-base", "#world-dyn"])
+      for (const off of [-W, 0, W]) el("use", { href: layer, x: off }, this.view);
     this.labels = document.createElement("div");
     this.labels.className = "labels";
     host.appendChild(this.labels);
@@ -175,8 +177,8 @@ export class ChartMap {
       e.textContent = s;
     };
     for (const s of SEAS) t(s.x, s.y, s.name, "sea-name", s.size);
-    t(1950, GL_TOP - BELT - 22, "G R A N D   L I N E  ·  P A R A D I S E", "band-name", 20);
-    t(3950, GL_TOP - BELT - 22, "G R A N D   L I N E  ·  N E W   W O R L D", "band-name", 20);
+    t(1950, GL_TOP - BELT - 22, "GRAND LINE · PARADISE", "band-name", 20);
+    t(3950, GL_TOP - BELT - 22, "GRAND LINE · NEW WORLD", "band-name", 20);
     for (const x of [600, 2000, 3400]) {
       t(x, GL_TOP - BELT / 2 + 6, "CALM BELT", "belt-name", 16);
       t(x, GL_BOTTOM + BELT / 2 + 6, "CALM BELT", "belt-name", 16);
